@@ -63,23 +63,23 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-
+		fmt.Println("updating gist successfully")
 	}
 
 	if updateMarkdown && markdownFile != "" {
 		title := filename
 		if updateGist {
-			title = fmt.Sprintf(`####  <a href="https://gist.github.com/%s" target="_blank">%s</a>`, gistID, title)
+			title = fmt.Sprintf(`#### <a href="https://gist.github.com/%s" target="_blank">%s</a>`, gistID, title)
 		}
 
-		content := bytes.NewBuffer([]byte(filename))
-		content.WriteString("\n")
+		content := bytes.NewBuffer(nil)
 		content.WriteString(strings.Join(lines, "\n"))
 
 		err = box.UpdateMarkdown(ctx, title, markdownFile, content.Bytes())
 		if err != nil {
 			fmt.Println(err)
 		}
+		fmt.Println("updating markdown successfully on", markdownFile)
 	}
 
 }
